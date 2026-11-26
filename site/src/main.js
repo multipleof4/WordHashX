@@ -1,4 +1,4 @@
-import { wordx, cap, join } from './wordx.js'
+import { whx, cap, join } from './whx.js'
 import url from '../../results/pieces.txt?url'
 import './style.css'
 
@@ -14,9 +14,9 @@ const pow = e => {
 
 const show = () => {
   const n = +k.value
-  name.textContent = `wordx-${n}`
+  name.textContent = `WHX-${n}`
   if (!P) return
-  const o = wordx(P, msg.value, n), b = n * Math.log2(P.length)
+  const o = whx(P, msg.value, n), b = n * Math.log2(P.length)
   text = join(o)
   // A <wbr> between pieces lets long hashes wrap between pieces, not inside one.
   out.replaceChildren(...o.flatMap((p, i) => [...(i ? [document.createElement('wbr')] : []), Object.assign(document.createElement('span'), { textContent: cap(p) })]))

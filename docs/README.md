@@ -1,4 +1,4 @@
-# wordx
+# WordHashX
 
 English words and syllable pieces from the full English Wiktionary, for word hashes built on [SpeckHashX](https://github.com/multipleof4/SpeckHashX).
 
@@ -13,10 +13,10 @@ English words and syllable pieces from the full English Wiktionary, for word has
 
 How they are made: [rules](rules.md).
 
-## wordx-k
+## WHX-k
 
-A hash of k pieces, for k from 1 to 64: [how it works, security and test vectors](wordx.md).
-The site in `site/` lets you type anything, pick k and see the hash and its security.
+A hash of k pieces, for k from 1 to 64: [how it works, security and test vectors](whx.md).
+At [wordhashx.pages.dev](https://wordhashx.pages.dev) you can type anything, pick k and see the hash and its security. It is built from `site/`.
 
 ```sh
 cd site
@@ -26,7 +26,7 @@ bun run build                  # into site/dist/
 
 ## The dump
 
-The full English dump is attached to the [`dump-2026-10-30` release](https://github.com/multipleof4/wordx/releases/tag/dump-2026-10-30):
+The full English dump is attached to the [`dump-2026-10-30` release](https://github.com/multipleof4/WordHashX/releases/tag/dump-2026-10-30):
 
 | | |
 |---|---|

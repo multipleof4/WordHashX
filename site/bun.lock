@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "speckhashx-site",
+      "name": "wordhashx-site",
       "dependencies": {
         "speckhashx": "1.3.0",
       },
