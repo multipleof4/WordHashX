@@ -17,7 +17,7 @@ Everything here is applied to the full English dump, in this order. The counts a
 | 6 | Drop every spelling with a space or a hyphen. | 964,588 |
 | 7 | Drop words where more than half the characters are digits, like `1790s`, `90210`, `m85`. Exactly half stays, like `0s`, `14er`. | 964,166 |
 | 8 | Drop demonyms and nationalities, below. | 962,218 |
-| 9 | Drop plurals, below. | 721,065 |
+| 9 | Drop plurals that are also a verb form, below. | 953,773 |
 
 The words are sorted by character code, so digits come before letters.
 
@@ -50,15 +50,17 @@ A spelling is dropped if any entry for it in the dump, in any letter case, is in
 
 ### Step 9
 
-A word is dropped if it ends in `s`, has a meaning the dump marks as "plural of", and has no meaning of its own:
-every other meaning it has is also an inflected form, like a verb form. All its entries count, in any letter case.
+A word is dropped if it ends in `s` and every meaning it has in the dump is an inflected form,
+with at least one "plural of" and at least one verb form. `fusions` is the plural of fusion and the verb form in "it fusions".
+All its entries count, in any letter case.
 
 | | Words | Examples |
 |---|---|---|
-| Dropped: only a plural | 232,692 | `corgis`, `cruets` |
-| Dropped: a plural and another inflected form | 8,461 | `fusions`, `flours` |
-| Kept: a plural with a meaning of its own | 4,257 | `glasses`, `news`, `physics` |
-| Kept: a plural that does not end in `s` | 9,387 | `children`, `snowmen` |
+| Dropped: a plural that is also a verb form | 8,445 | `fusions`, `flours`, `slides` |
+| Kept: only a plural | 232,687 | `corgis`, `cruets` |
+| Kept: a plural with a meaning of its own | 4,257 | `glasses`, `news`, `runs` |
+| Kept: a plural and another form that is not a verb form | 17 | `wives`, `countesses` |
+| Kept: a plural that does not end in `s` | 9,356 | `children`, `snowmen` |
 
 Every spelling steps 8 and 9 drop is in [`results/dropped.txt`](../results/dropped.txt). For step 8 that includes spellings with spaces.
 
@@ -84,15 +86,15 @@ Every spelling steps 8 and 9 drop is in [`results/dropped.txt`](../results/dropp
 
 | | Count |
 |---|---|
-| Words in 1 piece | 174,619 |
-| Words in 2 pieces | 326,611 |
-| Words in 3 pieces | 219,835 |
-| Words with fewer pieces than their length asks for | 89,374 |
-| Different pieces | 319,943 |
-| Left out because steps 8 and 9 dropped them as words | 3,137 |
-| **Pieces** | **316,806** |
-| Pieces that are words in `words.txt` | 178,809 |
-| Pieces that are not | 137,997 |
+| Words in 1 piece | 227,907 |
+| Words in 2 pieces | 435,943 |
+| Words in 3 pieces | 289,923 |
+| Words with fewer pieces than their length asks for | 139,236 |
+| Different pieces | 397,519 |
+| Left out because steps 8 and 9 dropped them as words | 2,083 |
+| **Pieces** | **395,436** |
+| Pieces that are words in `words.txt` | 232,820 |
+| Pieces that are not | 162,616 |
 
 ## Hashes as pieces
 
@@ -100,16 +102,16 @@ Every spelling steps 8 and 9 drop is in [`results/dropped.txt`](../results/dropp
 
 1. Hash the message with SpeckHashX 1.3.0.
 2. Read the hash as one big-endian number, like SpeckHashX's `base()`.
-3. Write it in base 316,806. Digit `d` is line `d` of `pieces.txt`, counting from 0.
-4. Pad with zeros to the fewest pieces that fit any hash of that length. A 16-byte hash is 8 pieces.
+3. Write it in base 395,436. Digit `d` is line `d` of `pieces.txt`, counting from 0.
+4. Pad with zeros to the fewest pieces that fit any hash of that length. A 16-byte hash is 7 pieces.
 
-8 pieces hold 146.1 bits and a 16-byte hash has 128, so the first piece is always `0d` or `0g`, the first 2 in the list.
+7 pieces hold 130.1 bits and a 16-byte hash has 128, so the first piece is always one of the first 88,999, up to `dirtened`.
 
 | Message | 16-byte hash | Pieces |
 |---|---|---|
-| empty | `504084C9293C8BB3D52E30681BB998C9` | 0d · gisid · hagiog · mukha · sialyld · rhoeic · jakeshouse · troni |
-| `abc` | `DBFECC39D9DE1F993D00A90030E89294` | 0d · tuc · bothe · tetley · jobed · tommis · taxfree · jumen |
-| `hello` | `068EAAF039F2D333D66ED87202F4DF15` | 0d · ambart · calk · ludane · suer · gotizes · sesori · beejoo |
-| `The quick brown fox jumps over the lazy dog` | `AEB761794FEF6E658F3FF2BCE1E69D11` | 0d · resqueeze · cayes · incaic · mecarbinate · lacue · simbol · unusurp |
-| `password` | `1E8870FD3081AAA958F5D19AC6475F95` | 0d · canyoneered · tavirus · outswims · neoglacial · duppie · puig · lawrance |
-| `SpeckHashX` | `C987CABE1FFC8E4DFD46026E310AE9C8` | 0d · switchi · percheron · dunkeld · guzhangian · pashinyan · lophos · rhymefest |
+| empty | `504084C9293C8BB3D52E30681BB998C9` | bearhunts · opatic · werc · lafufu · nelist · croghans · zouse |
+| `abc` | `DBFECC39D9DE1F993D00A90030E89294` | cuntal · hemis · hango · goudge · rncs · discour · nages |
+| `hello` | `068EAAF039F2D333D66ED87202F4DF15` | acarmi · payeth · microvas · hogreeves · prony · aconure · holopho |
+| `The quick brown fox jumps over the lazy dog` | `AEB761794FEF6E658F3FF2BCE1E69D11` | chronomed · ceedest · moazagotl · namoratas · bilette · feued · kazaskers |
+| `password` | `1E8870FD3081AAA958F5D19AC6475F95` | ambio · siew · drec · rainos · orbers · vaas · kulfis |
+| `SpeckHashX` | `C987CABE1FFC8E4DFD46026E310AE9C8` | corran · baekdu · khonim · marzbanates · fleshlily · cholestenol · isoto |
