@@ -1,0 +1,117 @@
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f2f0ea, #121214);
+  --card: light-dark(#ffffff, #1c1c20);
+  --ink: light-dark(#111111, #f1efe9);
+  --dim: light-dark(#5c5c66, #a3a3ad);
+  --hot: light-dark(#4338ff, #9b9cff);
+  --soft: light-dark(#e7e6ff, #26264a);
+  --edge: 2px solid var(--ink);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font: 17px/1.55 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+b { font-weight: 750; }
+sup { font-size: .62em; line-height: 0; }
+
+/* Faint dot grid, like graph paper under the pieces. */
+body { background-image: radial-gradient(color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1.4px); background-size: 22px 22px; }
+
+main {
+  max-width: 46rem;
+  margin: auto;
+  padding: 2.5rem 1.25rem 4rem;
+  display: grid;
+  gap: 2rem;
+}
+
+header { text-align: center; }
+header img { display: block; margin: 0 auto .25rem; }
+@media (prefers-reduced-motion: reduce) { header img, #out img { display: none; } }
+h1 { margin: 0; font: 800 clamp(3rem, 13vw, 4.75rem)/1 var(--serif); letter-spacing: -.03em; }
+h1 span { color: var(--hot); font-style: italic; }
+header p { margin: .6rem 0 0; color: var(--dim); }
+
+/* Cards: thick ink outline and a hard shadow, like the drawings. */
+.card {
+  display: grid;
+  gap: .6rem;
+  padding: 1.4rem;
+  background: var(--card);
+  border: var(--edge);
+  border-radius: 18px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+label, dt, small, .hint { color: var(--dim); font-size: .85rem; }
+
+textarea {
+  width: 100%;
+  padding: .75rem .9rem;
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+  border: var(--edge);
+  border-radius: 12px;
+  resize: vertical;
+}
+textarea:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+
+.pick { display: flex; justify-content: space-between; align-items: baseline; margin-top: .6rem; }
+#name { font: 700 1.6rem/1 var(--serif); color: var(--hot); font-variant-numeric: tabular-nums; }
+
+.range { display: flex; gap: .75rem; align-items: center; }
+input[type=range] { flex: 1; margin: 0; accent-color: var(--hot); height: 2rem; }
+
+button {
+  padding: .3rem .85rem;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 650;
+  color: inherit;
+  background: var(--card);
+  border: var(--edge);
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+}
+button:hover { background: var(--soft); }
+button:active { transform: translate(2px, 2px); box-shadow: none; }
+.range button { width: 2.4rem; height: 2.4rem; padding: 0; font-size: 1.2rem; }
+
+.out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1rem;
+  align-items: start;
+  margin-top: .6rem;
+  padding: 1rem 1.1rem;
+  background: var(--soft);
+  border: var(--edge);
+  border-radius: 14px;
+}
+/* The pieces are joined; every other one is coloured so you can see where each starts. */
+#out { flex: 1 1 16rem; margin: 0; font: 600 1.45rem/1.35 var(--serif); overflow-wrap: anywhere; min-height: 2rem; }
+#out span:nth-of-type(even) { color: var(--hot); }
+#out img { vertical-align: middle; margin-right: .4rem; }
+.out button { margin-left: auto; }
+
+dl { margin: .4rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: .6rem; }
+dl div { padding: .7rem .8rem; border: var(--edge); border-radius: 12px; display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: .2rem; }
+dt { font-size: .78rem; line-height: 1.3; }
+dd { margin: 0; font: 700 1.3rem/1.2 var(--serif); font-variant-numeric: tabular-nums; }
+dd i { display: block; font: 400 .78rem/1.3 system-ui, sans-serif; color: var(--dim); }
+.hint { margin: 0; padding: .6rem .8rem; border-left: 4px solid var(--hot); background: var(--soft); border-radius: 0 10px 10px 0; color: var(--ink); }
+
+ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .8rem; color: var(--dim); }
+li { padding-left: 1.4rem; position: relative; }
+li::before { content: ""; position: absolute; left: 0; top: .45em; width: .7rem; height: .7rem; border: var(--edge); border-radius: 3px; background: var(--hot); }
+li b { color: var(--ink); }
+
+.note { margin: 0; color: var(--dim); text-align: center; font-size: .9rem; }
+footer { display: flex; justify-content: center; gap: 1.5rem; }
+a { color: var(--ink); text-underline-offset: .2em; text-decoration-thickness: 2px; }
+a:hover { color: var(--hot); }

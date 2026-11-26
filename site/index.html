@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wordx: hashes made of words</title>
+  <meta name="description" content="wordx turns anything you type into a hash made of word pieces. Pick how many, from 1 to 64, and see how much security that gives.">
+  <meta property="og:title" content="wordx">
+  <meta property="og:description" content="Hashes made of word pieces. Pick how many, from 1 to 64.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='1' width='14' height='14' rx='4' fill='%23fff' stroke='%23111' stroke-width='2'/%3E%3Ccircle cx='8' cy='8' r='2.5' fill='%234338ff'/%3E%3C/svg%3E">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <img src="https://vibegif.direct-img.link/puzzle/snap.webp" width="104" height="104" alt="">
+      <h1>word<span>x</span></h1>
+      <p>Hashes made of word pieces. Pick how many.</p>
+    </header>
+
+    <section class="card">
+      <label for="msg">Type anything</label>
+      <textarea id="msg" rows="3" spellcheck="false" autocomplete="off">hello</textarea>
+
+      <div class="pick">
+        <label for="k">Words</label>
+        <output id="name" for="k">wordx-4</output>
+      </div>
+      <div class="range">
+        <button id="less" type="button" aria-label="One word less">−</button>
+        <input id="k" type="range" min="1" max="64" value="4">
+        <button id="more" type="button" aria-label="One word more">+</button>
+      </div>
+
+      <div class="out">
+        <p id="out" aria-live="polite"><img src="https://vibegif.direct-img.link/loading/blocks.webp" width="40" height="40" alt=""> Loading pieces…</p>
+        <button id="copy" type="button">Copy</button>
+      </div>
+
+      <dl id="sec">
+        <div><dt>Bits in the hash</dt><dd id="bits">–</dd></div>
+        <div><dt>Tries to find two inputs with the same hash</dt><dd id="col">–</dd></div>
+        <div><dt>Tries to find an input for a hash you already have</dt><dd id="pre">–</dd></div>
+        <div><dt>Bytes asked of SpeckHashX</dt><dd id="bytes">–</dd></div>
+      </dl>
+      <p id="cap" class="hint" hidden>From wordx-14 on, security stays at 2<sup>128</sup> and 2<sup>256</sup>: SpeckHashX keeps 32 bytes inside. More words only make the hash longer.</p>
+      <small>Hashed in your browser. Nothing you type leaves this page.</small>
+    </section>
+
+    <ul>
+      <li><b>Every count is its own hash.</b> wordx-4 and wordx-5 of the same text share nothing.</li>
+      <li><b>Any piece, any place.</b> Each of the <span id="n">399,979</span> pieces is equally likely in every position.</li>
+      <li><b>From the full English Wiktionary.</b> Words cut at their syllables into pieces.</li>
+    </ul>
+
+    <p class="note">Built on <a href="https://github.com/multipleof4/SpeckHashX">SpeckHashX</a>, which is new and has not been reviewed by anyone.</p>
+
+    <footer>
+      <a href="https://github.com/multipleof4/wordx">GitHub</a>
+      <a href="https://github.com/multipleof4/wordx/blob/main/docs/wordx.md">How it works</a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -12,6 +12,17 @@ English words and syllable pieces from the full English Wiktionary, for word has
 
 How they are made: [rules](rules.md).
 
+## wordx-k
+
+A hash of k pieces, for k from 1 to 64: [how it works, security and test vectors](wordx.md).
+The site in `site/` lets you type anything, pick k and see the hash and its security.
+
+```sh
+cd site
+bun install
+bun run build                  # into site/dist/
+```
+
 ## The dump
 
 The full English dump is attached to the [`dump-2026-10-30` release](https://github.com/multipleof4/wordx/releases/tag/dump-2026-10-30):
