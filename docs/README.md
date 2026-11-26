@@ -24,6 +24,19 @@ bun install
 bun run build                  # into site/dist/
 ```
 
+The npm package is in `pkg/npm/` ([`wordhashx`](https://www.npmjs.com/package/wordhashx), in beta: outputs are subject to change):
+
+```sh
+npm i wordhashx@beta
+```
+
+```js
+import { whx, pieces } from 'wordhashx'
+
+whx('abc', 4)     // 'FojtikRoynishElismsExpugn'
+pieces('abc', 4)  // ['fojtik', 'roynish', 'elisms', 'expugn']
+```
+
 ## The dump
 
 The full English dump is attached to the [`dump-2026-10-30` release](https://github.com/multipleof4/WordHashX/releases/tag/dump-2026-10-30):

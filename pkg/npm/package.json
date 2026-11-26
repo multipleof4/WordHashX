@@ -1,0 +1,24 @@
+{
+  "name": "wordhashx",
+  "version": "0.1.0-beta",
+  "description": "Hashes made of word pieces from the English Wiktionary, built on SpeckHashX. Beta: outputs are subject to change.",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "pieces.js"],
+  "scripts": {
+    "build": "bun build.js",
+    "test": "bun test",
+    "prepack": "bun build.js"
+  },
+  "dependencies": {
+    "speckhashx": "1.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/multipleof4/WordHashX.git",
+    "directory": "pkg/npm"
+  },
+  "homepage": "https://wordhashx.pages.dev",
+  "keywords": ["hash", "words", "wordlist", "speckhashx", "wiktionary"]
+}

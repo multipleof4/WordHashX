@@ -1,3 +1,4 @@
 data/
 node_modules/
 site/dist/
+pkg/npm/pieces.js
