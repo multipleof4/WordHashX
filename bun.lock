@@ -1,0 +1,14 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "dependencies": {
+        "speckhashx": "1.3.0",
+      },
+    },
+  },
+  "packages": {
+    "speckhashx": ["speckhashx@1.3.0", "", {}, "sha512-WZOzagtgtIeOfdnyic6c6Me0gnFYtpTzqZuwZ7yANieihMAGsA0eC2/+HxRDlU47TlwxFqUC7yVDv/0edm5AWg=="],
+  }
+}
