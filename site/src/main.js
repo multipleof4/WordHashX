@@ -38,6 +38,13 @@ copy.onclick = async () => {
   setTimeout(() => copy.textContent = 'Copy', 1200)
 }
 
+// The beta sticker opens a note; clicking it again, anywhere else, or Escape closes it.
+const beta = $('beta'), betanote = $('betanote')
+const open = v => (betanote.hidden = !v, beta.setAttribute('aria-expanded', v))
+beta.onclick = e => (e.stopPropagation(), open(betanote.hidden))
+document.addEventListener('click', e => e.target !== betanote && open(false))
+document.addEventListener('keydown', e => e.key === 'Escape' && open(false))
+
 show()
 P = (await (await fetch(url)).text()).split('\n').slice(0, -1)
 show()
