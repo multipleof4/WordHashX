@@ -1,4 +1,4 @@
-import { wordx, bytes, cap, join } from './wordx.js'
+import { wordx, cap, join } from './wordx.js'
 import url from '../../results/pieces.txt?url'
 import './style.css'
 
@@ -23,7 +23,6 @@ const show = () => {
   $('bits').textContent = (Math.floor(b * 10) / 10).toFixed(1)
   $('col').innerHTML = pow(Math.min(b / 2, 128))
   $('pre').innerHTML = pow(Math.min(b, 256))
-  $('bytes').textContent = bytes(P.length, n)
   cap14.hidden = n < 14
 }
 
