@@ -38,5 +38,4 @@ copy.onclick = async () => {
 
 show()
 P = (await (await fetch(url)).text()).split('\n').slice(0, -1)
-$('n').textContent = P.length.toLocaleString('en')
 show()

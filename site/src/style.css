@@ -4,8 +4,8 @@
   --card: light-dark(#ffffff, #1c1c20);
   --ink: light-dark(#111111, #f1efe9);
   --dim: light-dark(#5c5c66, #a3a3ad);
-  --hot: light-dark(#4338ff, #9b9cff);
-  --soft: light-dark(#e7e6ff, #26264a);
+  --hot: light-dark(#e2200a, #ff5436);
+  --soft: light-dark(#ffe7e2, #3d1a14);
   --edge: 2px solid var(--ink);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   font: 17px/1.55 ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
