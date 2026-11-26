@@ -5,7 +5,7 @@ The site in [`site/`](../site) computes it with [`site/src/whx.js`](../site/src/
 
 ## How
 
-With N = 399,225, the number of lines in `pieces.txt`:
+With N = 316,806, the number of lines in `pieces.txt`:
 
 1. Take the fewest bytes n with 256<sup>n</sup> ≥ N<sup>k</sup> · 2<sup>128</sup>.
 2. Hash the message with SpeckHashX 1.3.0 to n bytes, read big-endian as one number.
@@ -20,26 +20,27 @@ Every k asks SpeckHashX for a different length, so WHX-4 and WHX-5 of the same m
 
 | | Bits | Bytes asked of SpeckHashX | Tries to find two messages with the same hash | Tries to find a message for a given hash |
 |---|---|---|---|---|
-| WHX-1 | 18.6 | 19 | 2<sup>9.3</sup> | 2<sup>18.6</sup> |
-| WHX-2 | 37.2 | 21 | 2<sup>18.6</sup> | 2<sup>37.2</sup> |
-| WHX-3 | 55.8 | 23 | 2<sup>27.9</sup> | 2<sup>55.8</sup> |
-| WHX-4 | 74.4 | 26 | 2<sup>37.2</sup> | 2<sup>74.4</sup> |
-| WHX-5 | 93.0 | 28 | 2<sup>46.5</sup> | 2<sup>93</sup> |
-| WHX-6 | 111.6 | 30 | 2<sup>55.8</sup> | 2<sup>111.6</sup> |
-| WHX-7 | 130.2 | 33 | 2<sup>65.1</sup> | 2<sup>130.2</sup> |
-| WHX-8 | 148.8 | 35 | 2<sup>74.4</sup> | 2<sup>148.8</sup> |
-| WHX-9 | 167.4 | 37 | 2<sup>83.7</sup> | 2<sup>167.4</sup> |
-| WHX-10 | 186.0 | 40 | 2<sup>93</sup> | 2<sup>186</sup> |
-| WHX-11 | 204.6 | 42 | 2<sup>102.3</sup> | 2<sup>204.6</sup> |
-| WHX-12 | 223.2 | 44 | 2<sup>111.6</sup> | 2<sup>223.2</sup> |
-| WHX-13 | 241.8 | 47 | 2<sup>120.9</sup> | 2<sup>241.8</sup> |
-| WHX-14 | 260.4 | 49 | 2<sup>128</sup> | 2<sup>256</sup> |
-| WHX-20 | 372.1 | 63 | 2<sup>128</sup> | 2<sup>256</sup> |
-| WHX-32 | 595.4 | 91 | 2<sup>128</sup> | 2<sup>256</sup> |
-| WHX-64 | 1190.8 | 165 | 2<sup>128</sup> | 2<sup>256</sup> |
+| WHX-1 | 18.2 | 19 | 2<sup>9.1</sup> | 2<sup>18.2</sup> |
+| WHX-2 | 36.5 | 21 | 2<sup>18.2</sup> | 2<sup>36.5</sup> |
+| WHX-3 | 54.8 | 23 | 2<sup>27.4</sup> | 2<sup>54.8</sup> |
+| WHX-4 | 73.0 | 26 | 2<sup>36.5</sup> | 2<sup>73</sup> |
+| WHX-5 | 91.3 | 28 | 2<sup>45.6</sup> | 2<sup>91.3</sup> |
+| WHX-6 | 109.6 | 30 | 2<sup>54.8</sup> | 2<sup>109.6</sup> |
+| WHX-7 | 127.9 | 32 | 2<sup>63.9</sup> | 2<sup>127.9</sup> |
+| WHX-8 | 146.1 | 35 | 2<sup>73</sup> | 2<sup>146.1</sup> |
+| WHX-9 | 164.4 | 37 | 2<sup>82.2</sup> | 2<sup>164.4</sup> |
+| WHX-10 | 182.7 | 39 | 2<sup>91.3</sup> | 2<sup>182.7</sup> |
+| WHX-11 | 201.0 | 42 | 2<sup>100.5</sup> | 2<sup>201</sup> |
+| WHX-12 | 219.2 | 44 | 2<sup>109.6</sup> | 2<sup>219.2</sup> |
+| WHX-13 | 237.5 | 46 | 2<sup>118.7</sup> | 2<sup>237.5</sup> |
+| WHX-14 | 255.8 | 48 | 2<sup>127.9</sup> | 2<sup>255.8</sup> |
+| WHX-15 | 274.0 | 51 | 2<sup>128</sup> | 2<sup>256</sup> |
+| WHX-20 | 365.4 | 62 | 2<sup>128</sup> | 2<sup>256</sup> |
+| WHX-32 | 584.7 | 90 | 2<sup>128</sup> | 2<sup>256</sup> |
+| WHX-64 | 1169.4 | 163 | 2<sup>128</sup> | 2<sup>256</sup> |
 
-Each piece adds 18.6 bits. The tries are half the bits and all the bits, up to SpeckHashX's limits:
-it keeps 32 bytes inside, so from WHX-14 on security stays at 2<sup>128</sup> and 2<sup>256</sup>
+Each piece adds 18.2 bits. The tries are half the bits and all the bits, up to SpeckHashX's limits:
+it keeps 32 bytes inside, so from WHX-15 on security stays at 2<sup>128</sup> and 2<sup>256</sup>
 ([why](https://github.com/multipleof4/SpeckHashX/blob/main/docs/output-length.md)).
 Numbers are rounded down to one decimal.
 
@@ -47,15 +48,15 @@ Numbers are rounded down to one decimal.
 
 | Message | k | WHX-k |
 |---|---|---|
-| empty | 1 | `Drollest` |
-| empty | 4 | `FondlingsEnraMonolFilesi` |
-| `abc` | 1 | `Qandilite` |
-| `abc` | 2 | `PosauridsJcr` |
-| `abc` | 4 | `GrassquitSamaresNixineWetzes` |
-| `abc` | 13 | `LuctSlotaUcsbMilimeBundleTolisTaglishGergeDieselizedKilloffTacubesAssoilPrys` |
-| `abc` | 14 | `DecimaThoughtKlokansMarsaAntireaSkuzzyDocblocksPanolytMogonPetrinizeMestomeKanatQuisatesCarangi` |
-| `hello` | 1 | `Fusions` |
-| `hello` | 4 | `HaisToyucMavenBasilide` |
-| `The quick brown fox jumps over the lazy dog` | 4 | `MtasesKeizerVolaemicUtties` |
+| empty | 1 | `Doaethal` |
+| empty | 4 | `ToplinNishgaSewistSyngene` |
+| `abc` | 1 | `Chegre` |
+| `abc` | 2 | `AntigenMenses` |
+| `abc` | 4 | `TrootEndazSuturalOynoun` |
+| `abc` | 14 | `BometalDilaSpikegrassCgdSerosortRinizedChangeantCruxHandweavTrochromicLagoonRentlyCrovesiZhrit` |
+| `abc` | 15 | `PadayOberryTorquIndaWakespanPokZebraWhameKagokItoxCosateDragliftUsuringSicatCurrey` |
+| `hello` | 1 | `Phibic` |
+| `hello` | 4 | `JodhsPurieChhabraLiometer` |
+| `The quick brown fox jumps over the lazy dog` | 4 | `SpikiSniDarnumHwabyeong` |
 
 These match an independent Python version of the steps above for k from 1 to 64.

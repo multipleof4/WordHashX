@@ -17,6 +17,7 @@ Everything here is applied to the full English dump, in this order. The counts a
 | 6 | Drop every spelling with a space or a hyphen. | 964,588 |
 | 7 | Drop words where more than half the characters are digits, like `1790s`, `90210`, `m85`. Exactly half stays, like `0s`, `14er`. | 964,166 |
 | 8 | Drop demonyms and nationalities, below. | 962,218 |
+| 9 | Drop plurals, below. | 721,065 |
 
 The words are sorted by character code, so digits come before letters.
 
@@ -47,7 +48,19 @@ A spelling is dropped if any entry for it in the dump, in any letter case, is in
 | Any with `demonym` in its name, like Demonyms, American demonyms, British demonyms | 1,732 |
 | Nationalities, like `japanese`, `polish` | 216 more |
 
-Every dropped spelling, including ones with spaces, is in [`results/dropped.txt`](../results/dropped.txt).
+### Step 9
+
+A word is dropped if it ends in `s`, has a meaning the dump marks as "plural of", and has no meaning of its own:
+every other meaning it has is also an inflected form, like a verb form. All its entries count, in any letter case.
+
+| | Words | Examples |
+|---|---|---|
+| Dropped: only a plural | 232,692 | `corgis`, `cruets` |
+| Dropped: a plural and another inflected form | 8,461 | `fusions`, `flours` |
+| Kept: a plural with a meaning of its own | 4,257 | `glasses`, `news`, `physics` |
+| Kept: a plural that does not end in `s` | 9,387 | `children`, `snowmen` |
+
+Every spelling steps 8 and 9 drop is in [`results/dropped.txt`](../results/dropped.txt). For step 8 that includes spellings with spaces.
 
 ## Pieces
 
@@ -71,15 +84,15 @@ Every dropped spelling, including ones with spaces, is in [`results/dropped.txt`
 
 | | Count |
 |---|---|
-| Words in 1 piece | 231,378 |
-| Words in 2 pieces | 440,225 |
-| Words in 3 pieces | 290,615 |
-| Words with fewer pieces than their length asks for | 140,284 |
-| Different pieces | 399,406 |
-| Left out as demonyms or nationalities | 181 |
-| **Pieces** | **399,225** |
-| Pieces that are words in `words.txt` | 236,470 |
-| Pieces that are not | 162,755 |
+| Words in 1 piece | 174,619 |
+| Words in 2 pieces | 326,611 |
+| Words in 3 pieces | 219,835 |
+| Words with fewer pieces than their length asks for | 89,374 |
+| Different pieces | 319,943 |
+| Left out because steps 8 and 9 dropped them as words | 3,137 |
+| **Pieces** | **316,806** |
+| Pieces that are words in `words.txt` | 178,809 |
+| Pieces that are not | 137,997 |
 
 ## Hashes as pieces
 
@@ -87,16 +100,16 @@ Every dropped spelling, including ones with spaces, is in [`results/dropped.txt`
 
 1. Hash the message with SpeckHashX 1.3.0.
 2. Read the hash as one big-endian number, like SpeckHashX's `base()`.
-3. Write it in base 399,225. Digit `d` is line `d` of `pieces.txt`, counting from 0.
-4. Pad with zeros to the fewest pieces that fit any hash of that length. A 16-byte hash is 7 pieces.
+3. Write it in base 316,806. Digit `d` is line `d` of `pieces.txt`, counting from 0.
+4. Pad with zeros to the fewest pieces that fit any hash of that length. A 16-byte hash is 8 pieces.
 
-7 pieces hold 130.2 bits and a 16-byte hash has 128, so the first piece is always one of the first 84,050, up to `delitable`.
+8 pieces hold 146.1 bits and a 16-byte hash has 128, so the first piece is always `0d` or `0g`, the first 2 in the list.
 
 | Message | 16-byte hash | Pieces |
 |---|---|---|
-| empty | `504084C9293C8BB3D52E30681BB998C9` | baryls · bitchtits · stieglers · pearles · enego · belers · unhon |
-| `abc` | `DBFECC39D9DE1F993D00A90030E89294` | cowley · chronotropy · quation · disazo · tidomycin · chaeol · debut |
-| `hello` | `068EAAF039F2D333D66ED87202F4DF15` | abyrinthine · thone · trisac · doxial · eigengenome · toluene · dulces |
-| `The quick brown fox jumps over the lazy dog` | `AEB761794FEF6E658F3FF2BCE1E69D11` | cheki · fowle · milty · premas · houze · litox · mozines |
-| `password` | `1E8870FD3081AAA958F5D19AC6475F95` | alsac · locity · tanf · mewp · basilisc · chengk · nerc |
-| `SpeckHashX` | `C987CABE1FFC8E4DFD46026E310AE9C8` | coaked · stroids · mudnester · arochuk · mutal · renicu · bival |
+| empty | `504084C9293C8BB3D52E30681BB998C9` | 0d · gisid · hagiog · mukha · sialyld · rhoeic · jakeshouse · troni |
+| `abc` | `DBFECC39D9DE1F993D00A90030E89294` | 0d · tuc · bothe · tetley · jobed · tommis · taxfree · jumen |
+| `hello` | `068EAAF039F2D333D66ED87202F4DF15` | 0d · ambart · calk · ludane · suer · gotizes · sesori · beejoo |
+| `The quick brown fox jumps over the lazy dog` | `AEB761794FEF6E658F3FF2BCE1E69D11` | 0d · resqueeze · cayes · incaic · mecarbinate · lacue · simbol · unusurp |
+| `password` | `1E8870FD3081AAA958F5D19AC6475F95` | 0d · canyoneered · tavirus · outswims · neoglacial · duppie · puig · lawrance |
+| `SpeckHashX` | `C987CABE1FFC8E4DFD46026E310AE9C8` | 0d · switchi · percheron · dunkeld · guzhangian · pashinyan · lophos · rhymefest |

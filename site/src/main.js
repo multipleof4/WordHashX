@@ -3,7 +3,7 @@ import url from '../../results/pieces.txt?url'
 import './style.css'
 
 const $ = id => document.getElementById(id)
-const [msg, k, name, out, copy, cap14] = ['msg', 'k', 'name', 'out', 'copy', 'cap'].map($)
+const [msg, k, name, out, copy, note] = ['msg', 'k', 'name', 'out', 'copy', 'cap'].map($)
 let P, text = ''
 
 // 2^e with one decimal, rounded down so it never overstates, plus the plain number while it is small.
@@ -16,14 +16,16 @@ const show = () => {
   const n = +k.value
   name.textContent = `WHX-${n}`
   if (!P) return
-  const o = whx(P, msg.value, n), b = n * Math.log2(P.length)
+  // top: the first count whose pieces hold 256 bits, where SpeckHashX's 32 bytes of state cap the security.
+  const o = whx(P, msg.value, n), L = Math.log2(P.length), b = n * L, top = Math.ceil(256 / L)
   text = join(o)
   // A <wbr> between pieces lets long hashes wrap between pieces, not inside one.
   out.replaceChildren(...o.flatMap((p, i) => [...(i ? [document.createElement('wbr')] : []), Object.assign(document.createElement('span'), { textContent: cap(p) })]))
   $('bits').textContent = (Math.floor(b * 10) / 10).toFixed(1)
   $('col').innerHTML = pow(Math.min(b / 2, 128))
   $('pre').innerHTML = pow(Math.min(b, 256))
-  cap14.hidden = n < 14
+  $('top').textContent = `WHX-${top}`
+  note.hidden = n < top
 }
 
 const step = d => (k.value = +k.value + d, show())

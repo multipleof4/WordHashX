@@ -1,14 +1,20 @@
 # Applies the word rules in docs/rules.md to the dump and writes results/words.txt
 import gzip, json, re, sys
 src = sys.argv[1] if len(sys.argv) > 1 else 'data/kaikki.org-dictionary-English.jsonl.gz'
-n, W, D = 0, set(), set()
+n, W, D, PL, OWN = 0, set(), set(), set(), set()
 cats = lambda o: (c if isinstance(c, str) else c.get('name', '') for c in o.get('categories') or [])
 for l in gzip.open(src, 'rt', encoding='utf-8'):
     e = json.loads(l)
     n += 1
-    W.add(e.get('word', ''))
+    w = e.get('word', '')
+    W.add(w)
     # Spellings in a demonym category or in Nationalities, for step 8
-    if any('demonym' in c.lower() or c == 'Nationalities' for o in [e, *(e.get('senses') or [])] for c in cats(o)): D.add(e.get('word', '').lower())
+    if any('demonym' in c.lower() or c == 'Nationalities' for o in [e, *(e.get('senses') or [])] for c in cats(o)): D.add(w.lower())
+    # Spellings with a "plural of" meaning, and spellings with a meaning that is not an inflected form, for step 9
+    for s in e.get('senses') or []:
+        t = s.get('tags') or []
+        if not ('form-of' in t or s.get('form_of')): OWN.add(w.lower())
+        elif 'plural' in t: PL.add(w.lower())
 step = lambda r, s: print(f'{len(s):>9,}  {r}')
 print(f'{n:>9,}  entries in the dump')
 step('1. one per spelling', W)
@@ -34,7 +40,10 @@ W = {w for w in W if not re.search('[ -]', w)}
 step('6. drop spaces and hyphens', W)
 W = {w for w in W if 2 * len(re.findall(r'\d', w)) <= len(w)}
 step('7. drop more than half digits', W)
-W = sorted(W - D)
+W -= D
 step('8. drop demonyms and nationalities', W)
+P = {w for w in W if w[-1] == 's' and w in PL and w not in OWN}
+W = sorted(W - P)
+step('9. drop plurals', W)
 open('results/words.txt', 'w').write('\n'.join(W) + '\n')
-open('results/dropped.txt', 'w').write('\n'.join(sorted(D)) + '\n')
+open('results/dropped.txt', 'w').write('\n'.join(sorted(D | P)) + '\n')
