@@ -1,10 +1,10 @@
-import { whx, cap, join } from './whx.js'
-import url from '../../results/pieces.txt?url'
 import './style.css'
 
 const $ = id => document.getElementById(id)
 const [msg, k, name, out, copy, note] = ['msg', 'k', 'name', 'out', 'copy', 'cap'].map($)
-let P, text = ''
+// W is the wordhashx package and N its number of pieces, both loaded after the page shows.
+let W, N, text = ''
+const cap = p => p[0].toUpperCase() + p.slice(1)
 
 // 2^e with one decimal, rounded down so it never overstates, plus the plain number while it is small.
 const pow = e => {
@@ -15,10 +15,10 @@ const pow = e => {
 const show = () => {
   const n = +k.value
   name.textContent = `WHX-${n}`
-  if (!P) return
+  if (!W) return
   // top: the first count whose pieces hold 256 bits, where SpeckHashX's 32 bytes of state cap the security.
-  const o = whx(P, msg.value, n), L = Math.log2(P.length), b = n * L, top = Math.ceil(256 / L)
-  text = join(o)
+  const o = W.pieces(msg.value, n), L = Math.log2(N), b = n * L, top = Math.ceil(256 / L)
+  text = o.map(cap).join('')
   // A <wbr> between pieces lets long hashes wrap between pieces, not inside one.
   out.replaceChildren(...o.flatMap((p, i) => [...(i ? [document.createElement('wbr')] : []), Object.assign(document.createElement('span'), { textContent: cap(p) })]))
   $('bits').textContent = (Math.floor(b * 10) / 10).toFixed(1)
@@ -46,5 +46,9 @@ document.addEventListener('click', e => e.target !== betanote && open(false))
 document.addEventListener('keydown', e => e.key === 'Escape' && open(false))
 
 show()
-P = (await (await fetch(url)).text()).split('\n').slice(0, -1)
+// The package's own list, one piece per line, for the bits per piece.
+const [w, { default: list }] = await Promise.all([import('wordhashx'), import('wordhashx/pieces.js')])
+N = 1
+for (let i = -1; (i = list.indexOf('\n', i + 1)) >= 0;) N++
+W = w
 show()

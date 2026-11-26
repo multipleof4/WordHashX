@@ -1,7 +1,7 @@
 # WHX-k
 
 WHX-k is a hash made of k pieces from [`results/pieces.txt`](../results/pieces.txt), for k from 1 to 64.
-The site in [`site/`](../site) computes it with [`site/src/whx.js`](../site/src/whx.js).
+The npm package [`wordhashx`](https://www.npmjs.com/package/wordhashx) in [`pkg/npm/`](../pkg/npm) computes it, and the site in [`site/`](../site) uses that package.
 
 ## How
 
