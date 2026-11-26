@@ -6,10 +6,10 @@ English words and syllable pieces from the full English Wiktionary, for word has
 
 | File | What |
 |---|---|
-| [`results/words.txt`](../results/words.txt) | 953,773 words, one per line |
+| [`results/words.txt`](../results/words.txt) | 952,665 words, one per line |
 | [`results/splits.tsv`](../results/splits.tsv) | Each word and the pieces it splits into |
-| [`results/pieces.txt`](../results/pieces.txt) | 395,436 pieces, one per line |
-| [`results/dropped.txt`](../results/dropped.txt) | The demonyms, nationalities and verb-form plurals left out |
+| [`results/pieces.txt`](../results/pieces.txt) | 394,548 pieces, one per line |
+| [`results/dropped.txt`](../results/dropped.txt) | The demonyms, nationalities and plurals that are also verbs left out |
 
 How they are made: [rules](rules.md).
 

@@ -1,7 +1,7 @@
 # Applies the word rules in docs/rules.md to the dump and writes results/words.txt
 import gzip, json, re, sys
 src = sys.argv[1] if len(sys.argv) > 1 else 'data/kaikki.org-dictionary-English.jsonl.gz'
-n, W, D, PL, VB, OWN = 0, set(), set(), set(), set(), set()
+n, W, D, PL, VB = 0, set(), set(), set(), set()
 cats = lambda o: (c if isinstance(c, str) else c.get('name', '') for c in o.get('categories') or [])
 for l in gzip.open(src, 'rt', encoding='utf-8'):
     e = json.loads(l)
@@ -10,12 +10,9 @@ for l in gzip.open(src, 'rt', encoding='utf-8'):
     W.add(w)
     # Spellings in a demonym category or in Nationalities, for step 8
     if any('demonym' in c.lower() or c == 'Nationalities' for o in [e, *(e.get('senses') or [])] for c in cats(o)): D.add(w.lower())
-    # For step 9: spellings with a meaning that is not an inflected form (OWN), with a verb form (VB), with a "plural of" (PL)
-    for s in e.get('senses') or []:
-        t = s.get('tags') or []
-        if not ('form-of' in t or s.get('form_of')): OWN.add(w.lower())
-        elif e.get('pos') == 'verb': VB.add(w.lower())
-        elif 'plural' in t: PL.add(w.lower())
+    # For step 9: spellings that are a verb (VB), and spellings with a "plural of" meaning outside the verb (PL)
+    if e.get('pos') == 'verb': VB.add(w.lower())
+    elif any('plural' in (s.get('tags') or []) and ('form-of' in s['tags'] or s.get('form_of')) for s in e.get('senses') or []): PL.add(w.lower())
 step = lambda r, s: print(f'{len(s):>9,}  {r}')
 print(f'{n:>9,}  entries in the dump')
 step('1. one per spelling', W)
@@ -43,8 +40,8 @@ W = {w for w in W if 2 * len(re.findall(r'\d', w)) <= len(w)}
 step('7. drop more than half digits', W)
 W -= D
 step('8. drop demonyms and nationalities', W)
-P = {w for w in W if w[-1] == 's' and w in PL and w in VB and w not in OWN}
+P = {w for w in W if w[-1] == 's' and w in PL and w in VB}
 W = sorted(W - P)
-step('9. drop plurals that are also a verb form', W)
+step('9. drop plurals that are also a verb', W)
 open('results/words.txt', 'w').write('\n'.join(W) + '\n')
 open('results/dropped.txt', 'w').write('\n'.join(sorted(D | P)) + '\n')
