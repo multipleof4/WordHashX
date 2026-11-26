@@ -2,7 +2,8 @@
 # requires-python = ">=3.10"
 # dependencies = ["pyphen==0.17.2"]
 # ///
-# Splits results/words.txt into syllable pieces by docs/rules.md and writes results/splits.tsv and results/pieces.txt
+# Splits results/words.txt into syllable pieces by docs/rules.md and writes results/splits.tsv and results/pieces.txt,
+# leaving out pieces that are demonyms or nationalities
 import collections, itertools, pyphen
 P = pyphen.Pyphen(lang='en_US')
 W = open('results/words.txt').read().split()
@@ -20,9 +21,11 @@ def split(w):
     return best[1]
 S = [(w, split(w)) for w in W]
 open('results/splits.tsv', 'w').write(''.join(f'{w}\t{" ".join(p)}\n' for w, p in S))
-U = sorted({x for _, p in S for x in p})
+D = set(open('results/dropped.txt').read().splitlines())
+A = {x for _, p in S for x in p}
+U = sorted(A - D)
 open('results/pieces.txt', 'w').write('\n'.join(U) + '\n')
 c = collections.Counter(len(p) for _, p in S)
 print(f'{len(W):>9,}  words\n' + ''.join(f'{c[k]:>9,}  in {k} piece{"s" * (k > 1)}\n' for k in sorted(c)), end='')
 print(f'{sum(len(p) < want(w) for w, p in S):>9,}  fewer pieces than their length asks for')
-print(f'{len(U):>9,}  pieces\n{len(set(U) & set(W)):>9,}  of them are words\n{len(set(U) - set(W)):>9,}  are not')
+print(f'{len(A):>9,}  different pieces\n{len(A & D):>9,}  of them demonyms or nationalities, left out\n{len(U):>9,}  pieces\n{len(set(U) & set(W)):>9,}  of them are words\n{len(set(U) - set(W)):>9,}  are not')

@@ -5,7 +5,7 @@ The site in [`site/`](../site) computes it with [`site/src/wordx.js`](../site/sr
 
 ## How
 
-With N = 399,979, the number of lines in `pieces.txt`:
+With N = 399,225, the number of lines in `pieces.txt`:
 
 1. Take the fewest bytes n with 256<sup>n</sup> ≥ N<sup>k</sup> · 2<sup>128</sup>.
 2. Hash the message with SpeckHashX 1.3.0 to n bytes, read big-endian as one number.
@@ -30,13 +30,13 @@ Every k asks SpeckHashX for a different length, so wordx-4 and wordx-5 of the sa
 | wordx-8 | 148.8 | 35 | 2<sup>74.4</sup> | 2<sup>148.8</sup> |
 | wordx-9 | 167.4 | 37 | 2<sup>83.7</sup> | 2<sup>167.4</sup> |
 | wordx-10 | 186.0 | 40 | 2<sup>93</sup> | 2<sup>186</sup> |
-| wordx-11 | 204.7 | 42 | 2<sup>102.3</sup> | 2<sup>204.7</sup> |
-| wordx-12 | 223.3 | 44 | 2<sup>111.6</sup> | 2<sup>223.3</sup> |
-| wordx-13 | 241.9 | 47 | 2<sup>120.9</sup> | 2<sup>241.9</sup> |
-| wordx-14 | 260.5 | 49 | 2<sup>128</sup> | 2<sup>256</sup> |
+| wordx-11 | 204.6 | 42 | 2<sup>102.3</sup> | 2<sup>204.6</sup> |
+| wordx-12 | 223.2 | 44 | 2<sup>111.6</sup> | 2<sup>223.2</sup> |
+| wordx-13 | 241.8 | 47 | 2<sup>120.9</sup> | 2<sup>241.8</sup> |
+| wordx-14 | 260.4 | 49 | 2<sup>128</sup> | 2<sup>256</sup> |
 | wordx-20 | 372.1 | 63 | 2<sup>128</sup> | 2<sup>256</sup> |
-| wordx-32 | 595.5 | 91 | 2<sup>128</sup> | 2<sup>256</sup> |
-| wordx-64 | 1191.0 | 165 | 2<sup>128</sup> | 2<sup>256</sup> |
+| wordx-32 | 595.4 | 91 | 2<sup>128</sup> | 2<sup>256</sup> |
+| wordx-64 | 1190.8 | 165 | 2<sup>128</sup> | 2<sup>256</sup> |
 
 Each piece adds 18.6 bits. The tries are half the bits and all the bits, up to SpeckHashX's limits:
 it keeps 32 bytes inside, so from wordx-14 on security stays at 2<sup>128</sup> and 2<sup>256</sup>
@@ -47,15 +47,15 @@ Numbers are rounded down to one decimal.
 
 | Message | k | wordx-k |
 |---|---|---|
-| empty | 1 | `Vilyuy` |
-| empty | 4 | `WorldesCamelpoxRonomDodata` |
-| `abc` | 1 | `Fenty` |
-| `abc` | 2 | `DipyridilsMidtho` |
-| `abc` | 4 | `OmmiadTasisDayjobsRileigh` |
-| `abc` | 13 | `BriefeeFitzSethylchloroAreniBraineNiiiceDamrisSelarsPyrarLotidesBoelsLidistsQuios` |
-| `abc` | 14 | `FismAkazuPryvilToutsMifloNamsenMasanYukimuCureCartlidgeDorsiSalmostAizkoAerosled` |
-| `hello` | 1 | `Siphilis` |
-| `hello` | 4 | `PirogramMarmalLaoighiseJaspery` |
-| `The quick brown fox jumps over the lazy dog` | 4 | `FriedrichsSubdeTitresInthroned` |
+| empty | 1 | `Drollest` |
+| empty | 4 | `FondlingsEnraMonolFilesi` |
+| `abc` | 1 | `Qandilite` |
+| `abc` | 2 | `PosauridsJcr` |
+| `abc` | 4 | `GrassquitSamaresNixineWetzes` |
+| `abc` | 13 | `LuctSlotaUcsbMilimeBundleTolisTaglishGergeDieselizedKilloffTacubesAssoilPrys` |
+| `abc` | 14 | `DecimaThoughtKlokansMarsaAntireaSkuzzyDocblocksPanolytMogonPetrinizeMestomeKanatQuisatesCarangi` |
+| `hello` | 1 | `Fusions` |
+| `hello` | 4 | `HaisToyucMavenBasilide` |
+| `The quick brown fox jumps over the lazy dog` | 4 | `MtasesKeizerVolaemicUtties` |
 
 These match an independent Python version of the steps above for k from 1 to 64.

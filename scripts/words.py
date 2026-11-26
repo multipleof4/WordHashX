@@ -1,10 +1,14 @@
 # Applies the word rules in docs/rules.md to the dump and writes results/words.txt
 import gzip, json, re, sys
 src = sys.argv[1] if len(sys.argv) > 1 else 'data/kaikki.org-dictionary-English.jsonl.gz'
-n, W = 0, set()
+n, W, D = 0, set(), set()
+cats = lambda o: (c if isinstance(c, str) else c.get('name', '') for c in o.get('categories') or [])
 for l in gzip.open(src, 'rt', encoding='utf-8'):
+    e = json.loads(l)
     n += 1
-    W.add(json.loads(l).get('word', ''))
+    W.add(e.get('word', ''))
+    # Spellings in a demonym category or in Nationalities, for step 8
+    if any('demonym' in c.lower() or c == 'Nationalities' for o in [e, *(e.get('senses') or [])] for c in cats(o)): D.add(e.get('word', '').lower())
 step = lambda r, s: print(f'{len(s):>9,}  {r}')
 print(f'{n:>9,}  entries in the dump')
 step('1. one per spelling', W)
@@ -28,6 +32,9 @@ W = {w for w in W if len(w.split(' ')) <= 3}
 step('5. drop more than 3 chunks', W)
 W = {w for w in W if not re.search('[ -]', w)}
 step('6. drop spaces and hyphens', W)
-W = sorted(w for w in W if 2 * len(re.findall(r'\d', w)) <= len(w))
+W = {w for w in W if 2 * len(re.findall(r'\d', w)) <= len(w)}
 step('7. drop more than half digits', W)
+W = sorted(W - D)
+step('8. drop demonyms and nationalities', W)
 open('results/words.txt', 'w').write('\n'.join(W) + '\n')
+open('results/dropped.txt', 'w').write('\n'.join(sorted(D)) + '\n')
