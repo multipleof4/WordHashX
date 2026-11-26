@@ -6,9 +6,9 @@ English words and syllable pieces from the full English Wiktionary, for word has
 
 | File | What |
 |---|---|
-| [`results/words.txt`](../results/words.txt) | 964,588 words, one per line |
+| [`results/words.txt`](../results/words.txt) | 964,166 words, one per line |
 | [`results/splits.tsv`](../results/splits.tsv) | Each word and the pieces it splits into |
-| [`results/pieces.txt`](../results/pieces.txt) | 400,401 pieces, one per line |
+| [`results/pieces.txt`](../results/pieces.txt) | 399,979 pieces, one per line |
 
 How they are made: [rules](rules.md).
 

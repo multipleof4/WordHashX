@@ -26,6 +26,8 @@ W = {w.lower() for w in W}
 step('4. merge case', W)
 W = {w for w in W if len(w.split(' ')) <= 3}
 step('5. drop more than 3 chunks', W)
-W = sorted(w for w in W if not re.search('[ -]', w))
+W = {w for w in W if not re.search('[ -]', w)}
 step('6. drop spaces and hyphens', W)
+W = sorted(w for w in W if 2 * len(re.findall(r'\d', w)) <= len(w))
+step('7. drop more than half digits', W)
 open('results/words.txt', 'w').write('\n'.join(W) + '\n')
