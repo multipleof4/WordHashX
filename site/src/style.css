@@ -32,8 +32,25 @@ main {
 header { text-align: center; }
 header img { display: block; margin: 0 auto .25rem; }
 @media (prefers-reduced-motion: reduce) { header img, #out img { display: none; } }
-h1 { margin: 0; font: 800 clamp(3rem, 13vw, 4.75rem)/1 var(--serif); letter-spacing: -.03em; }
+h1 { margin: 0; font: 800 clamp(2.25rem, 13vw, 4.75rem)/1 var(--serif); letter-spacing: -.03em; }
 h1 span { color: var(--hot); font-style: italic; }
+/* A small sticker on the title's top-right corner; out of the flow, so the title stays centred. */
+h1 { position: relative; display: inline-block; }
+h1 .beta {
+  position: absolute;
+  top: -1.2rem;
+  right: -.4rem;
+  padding: .12rem .5rem .18rem;
+  font: 700 .8rem/1 ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: .06em;
+  color: var(--card);
+  background: var(--hot);
+  border: var(--edge);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: rotate(10deg);
+}
 header p { margin: .6rem 0 0; color: var(--dim); }
 
 /* Cards: thick ink outline and a hard shadow, like the drawings. */
