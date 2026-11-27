@@ -20,5 +20,6 @@
     "directory": "pkg/npm"
   },
   "homepage": "https://wordhashx.pages.dev",
+  "license": "CC0-1.0 AND CC-BY-SA-4.0",
   "keywords": ["hash", "words", "wordlist", "speckhashx", "wiktionary"]
 }

@@ -38,8 +38,10 @@ Each piece adds 18.5 bits. Security stops growing at WHX-14, where SpeckHashX's 
 
 How it works, every k and test vectors: [docs/whx.md](https://github.com/multipleof4/WordHashX/blob/main/docs/whx.md).
 
-## Wiktionary
+## License
 
-The 394,548 pieces come from [Wiktionary](https://en.wiktionary.org/), by its contributors,
-under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and the [GFDL](https://www.gnu.org/licenses/fdl-1.3.html).
+The code is [CC0 1.0](https://github.com/multipleof4/WordHashX/blob/main/LICENSE): public domain.
+
+The 394,548 pieces are not: they come from [Wiktionary](https://en.wiktionary.org/), by its contributors,
+and stay under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and the [GFDL](https://www.gnu.org/licenses/fdl-1.3.html).
 How they are made: [rules](https://github.com/multipleof4/WordHashX/blob/main/docs/rules.md).

@@ -60,7 +60,9 @@ bun install
 bun scripts/example.mjs abc    # a 16-byte hash as pieces
 ```
 
-## Wiktionary
+## License
 
-The dump and everything in `results/` come from [Wiktionary](https://en.wiktionary.org/),
-by its contributors, under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and the [GFDL](https://www.gnu.org/licenses/fdl-1.3.html).
+[CC0 1.0](../LICENSE): public domain, the same terms as SpeckHashX.
+
+The Wiktionary data is not: the dump, everything in `results/`, and the pieces in the npm package come from [Wiktionary](https://en.wiktionary.org/),
+by its contributors, and stay under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) and the [GFDL](https://www.gnu.org/licenses/fdl-1.3.html).
